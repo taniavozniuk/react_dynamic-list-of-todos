@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Todo } from '../../types/Todo';
 import cn from 'classnames';
 
 type Props = {
   todos: Todo[];
   onShowTodo: (todo: Todo) => void;
+  selectedTodo: Todo | null;
 };
 
-export const TodoList: React.FC<Props> = ({ todos, onShowTodo }) => {
-  const [pressedTodo, setPressedTodo] = useState<Todo | null>(null);
-
+export const TodoList: React.FC<Props> = ({
+  todos,
+  onShowTodo,
+  selectedTodo,
+}) => {
   const handleTodoClick = (todo: Todo) => {
     onShowTodo(todo);
-    setPressedTodo(todo);
   };
 
   return (
@@ -32,7 +34,7 @@ export const TodoList: React.FC<Props> = ({ todos, onShowTodo }) => {
 
       <tbody>
         {todos.map(todo => {
-          const isSelectedTodo = pressedTodo?.id === todo.id;
+          const isSelectedTodo = selectedTodo?.id === todo.id;
 
           return (
             <tr

@@ -75,7 +75,11 @@ export const App: React.FC = () => {
               {loading ? (
                 <Loader />
               ) : (
-                <TodoList todos={filteredTodos} onShowTodo={handleShowTodo} />
+                <TodoList
+                  todos={filteredTodos}
+                  onShowTodo={handleShowTodo}
+                  selectedTodo={selectedTodo}
+                />
               )}
             </div>
           </div>
