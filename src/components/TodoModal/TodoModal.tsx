@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Loader } from '../Loader';
 import { getUser } from '../../api';
 import { User } from '../../types/User';
+import { Todo } from '../../types/Todo';
 
 interface TodoModalProps {
   todo: Todo;
@@ -57,9 +58,11 @@ export const TodoModal: React.FC<TodoModalProps> = ({ todo, onClose }) => {
           </header>
 
           <div className="modal-card-body">
-            <p className="block" data-cy="modal-title">
-              {todo.title}
-            </p>
+            {user && (
+              <p className="block" data-cy="modal-title">
+                {user.name}
+              </p>
+            )}
 
             <p className="block" data-cy="modal-user">
               {/* <strong className="has-text-success">Done</strong> */}

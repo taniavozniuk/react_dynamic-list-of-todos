@@ -16,6 +16,8 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState<Todo | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -34,6 +36,24 @@ export const App: React.FC = () => {
     setIsModalVisible(false);
   };
 
+  const filteredTodos = todos.filter(todo => {
+    // active-не завершені
+
+    if (filter === 'active' && todo.completed) {
+      return false;
+    }
+
+    // completed-завершені
+    if (filter === 'completed' && !todo.completed) {
+      return false;
+    }
+
+    // фільтрація за назваою
+    return todo.title.toLowerCase().includes(query.toLowerCase());
+
+    // return true; //all
+  });
+
   return (
     <>
       <div className="section">
@@ -42,20 +62,25 @@ export const App: React.FC = () => {
             <h1 className="title">Todos:</h1>
 
             <div className="block">
-              <TodoFilter />
+              <TodoFilter
+                filter={filter}
+                onChangeFilter={setFilter}
+                query={query}
+                onQueryChange={setQuery}
+              />
             </div>
 
             <div className="block">
               {loading ? (
                 <Loader />
               ) : (
-                <TodoList todos={todos} onShowTodo={handleShowTodo} />
+                <TodoList todos={filteredTodos} onShowTodo={handleShowTodo} />
               )}
             </div>
           </div>
         </div>
       </div>
-      {selectedUser && (
+      {isModalVisible && selectedUser && (
         <TodoModal todo={selectedUser} onClose={hanleCloseModal} />
       )}
     </>
