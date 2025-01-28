@@ -12,25 +12,15 @@ interface TodoModalProps {
 export const TodoModal: React.FC<TodoModalProps> = ({ todo, onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
-  // const [close, setClose] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
     getUser(todo.userId)
       .then(data => {
         setUser(data);
-        setIsLoading(false);
       })
-      .catch(() => setIsLoading(false));
+      .finally(() => setIsLoading(false));
   }, [todo]);
-
-  // const handleClose = () => {
-  //   setClose(false);
-  // };
-
-  // if (!close) {
-  //   return null;
-  // }
 
   return (
     <div className="modal is-active" data-cy="modal">
@@ -58,14 +48,12 @@ export const TodoModal: React.FC<TodoModalProps> = ({ todo, onClose }) => {
           </header>
 
           <div className="modal-card-body">
-            {user && (
-              <p className="block" data-cy="modal-title">
-                {user.name}
-              </p>
-            )}
+            <p className="block" data-cy="modal-title">
+              {todo.title}
+            </p>
 
             <p className="block" data-cy="modal-user">
-              {/* <strong className="has-text-success">Done</strong> */}
+              <strong className="has-text-success">Done</strong>
               <strong
                 className={
                   todo.completed ? 'has-text-success' : 'has-text-danger'

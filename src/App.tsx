@@ -14,7 +14,7 @@ import { Todo } from './types/Todo';
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedUser, setSelectedUser] = useState<Todo | null>(null);
+  const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
   const [query, setQuery] = useState('');
@@ -28,11 +28,12 @@ export const App: React.FC = () => {
   }, []);
 
   const handleShowTodo = (todo: Todo) => {
-    setSelectedUser(todo);
+    setSelectedTodo(todo);
     setIsModalVisible(true);
   };
 
   const hanleCloseModal = () => {
+    setSelectedTodo(null);
     setIsModalVisible(false);
   };
 
@@ -80,8 +81,8 @@ export const App: React.FC = () => {
           </div>
         </div>
       </div>
-      {isModalVisible && selectedUser && (
-        <TodoModal todo={selectedUser} onClose={hanleCloseModal} />
+      {isModalVisible && selectedTodo && (
+        <TodoModal todo={selectedTodo} onClose={hanleCloseModal} />
       )}
     </>
   );
