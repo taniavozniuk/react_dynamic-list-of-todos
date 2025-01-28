@@ -57,7 +57,7 @@ export const TodoList: React.FC<Props> = ({ todos, onShowTodo }) => (
               onClick={() => onShowTodo(todo)}
             >
               <span className="icon">
-                <i className="far fa-eye" />
+                <i className={todo.title ? 'far fa-eye' : 'far fa-eye-slash'} />
               </span>
             </button>
           </td>
