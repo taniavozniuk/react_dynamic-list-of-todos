@@ -32,7 +32,7 @@ export const App: React.FC = () => {
     setIsModalVisible(true);
   };
 
-  const hanleCloseModal = () => {
+  const handleCloseModal = () => {
     setSelectedTodo(null);
     setIsModalVisible(false);
   };
@@ -86,7 +86,7 @@ export const App: React.FC = () => {
         </div>
       </div>
       {isModalVisible && selectedTodo && (
-        <TodoModal todo={selectedTodo} onClose={hanleCloseModal} />
+        <TodoModal todo={selectedTodo} onClose={handleCloseModal} />
       )}
     </>
   );

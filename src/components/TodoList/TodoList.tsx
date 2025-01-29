@@ -37,11 +37,7 @@ export const TodoList: React.FC<Props> = ({
           const isSelectedTodo = selectedTodo?.id === todo.id;
 
           return (
-            <tr
-              data-cy="todo"
-              className="has-background-into-light"
-              key={todo.id}
-            >
+            <tr data-cy="todo" className="has-background-light" key={todo.id}>
               <td className="is-vcentered">{todo.id}</td>
               <td className="is-vcentered">
                 {todo.completed ? (
